@@ -1,0 +1,17 @@
+<mvc:View controllerName="logaligroup.Empleados.controller.CrearEmpleado" 
+        xmlns:mvc="sap.ui.core.mvc"
+        xmlns="sap.m" 
+        displayBlock="true">
+    <Page title="{i18n>tileCrearEmpleado}">
+        <content>
+
+        </content>
+        <footer>
+            <Toolbar>
+                <ToolbarSpacer></ToolbarSpacer>
+                <Button text="{i18n>cancelBut}" press="onCancel" ></Button>
+            </Toolbar>
+        </footer>        
+    </Page>
+
+</mvc:View>
