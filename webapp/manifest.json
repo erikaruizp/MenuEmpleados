@@ -16,7 +16,7 @@
       "version": "1.40.12"
     },
     "dataSources": {
-      "mainService": {
+      "ZEMPLOYEES_SRV": {
         "uri": "sap/opu/odata/sap/ZEMPLOYEES_SRV/",
         "type": "OData",
         "settings": {
@@ -69,8 +69,8 @@
           "bundleName": "logaligroup.Empleados.i18n.i18n"
         }
       },
-      "": {
-        "dataSource": "mainService",
+      "employeeModel": {
+        "dataSource": "ZEMPLOYEES_SRV",
         "preload": true,
         "settings": {
           "defaultBindingMode": "TwoWay",

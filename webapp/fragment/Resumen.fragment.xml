@@ -1,0 +1,43 @@
+<core:FragmentDefinition xmlns="sap.m"
+                         xmlns:core="sap.ui.core"
+                         xmlns:form="sap.ui.layout.form">
+    <Panel headerText="1. {i18n>tipoEmpleadoTitle}" >
+		<form:SimpleForm minWidth="1024" editable="false" layout="ResponsiveGridLayout">
+			<form:content>
+				<Label text="{i18n>tipoLab}"/>
+				<Text text="{=${/_tipoEmpleado} === 'Interno' ? ${i18n>internoBut} : 
+                              ${/_tipoEmpleado} === 'Autonomo' ? ${i18n>autonomoBut} : 
+                              ${i18n>gerenteBut}
+                            }"/>
+				<Link press="onIrPaso1" text="{i18n>editarLink}" />
+			</form:content>
+		</form:SimpleForm>    
+    </Panel>
+    <Panel headerText="2. {i18n>datosEmpleadoTitle}" >
+		<form:SimpleForm minWidth="1024" editable="false" layout="ResponsiveGridLayout">
+			<form:content>
+				<Label text="{i18n>nombreLab}"/><Text text="{/nombres}"/>
+                <Label text="{i18n>apellidoLab}"/><Text text="{/apellidos}"/>
+                <Label text="{= ${/_tipoEmpleado} === 'Autonomo' ? ${i18n>cifLab} : ${i18n>dniLab}}"/><Text text="{/dni}"/>
+                <Label text="{= ${/_tipoEmpleado} === 'Autonomo' ? ${i18n>precioDiaLab} : ${i18n>salarioBrutoLab}}"/><Text text="{/sueldo}"/>
+				<Label text="{i18n>fechaIncLab}"/><Text text="{path:'/fechaIn',type:'sap.ui.model.type.Date'}"/>
+                <Link press="onIrPaso2" text="{i18n>editarLink}" />
+			</form:content>
+		</form:SimpleForm>    
+    </Panel>    
+    <Panel headerText="3. {i18n>infoAdicionalTitle}" >
+		<form:SimpleForm minWidth="1024" editable="false" layout="ResponsiveGridLayout">
+			<form:content>
+				<Label text="{i18n>comentarioLab}"/><TextArea value="{/comentarios}" width="100%" editable="false" rows="3"/>
+                <Label text="{i18n>documentoLab}"/><Text text="{/numArchivos} {i18n>ficheroTxt}"/>
+                <Label />
+				<List items="{/archivos}">
+					<items>
+						<StandardListItem title="{NombreDoc}" />
+					</items>
+				</List>
+				<Link press="onIrPaso3" text="{i18n>editarLink}" />
+			</form:content>
+		</form:SimpleForm>    
+    </Panel>    
+</core:FragmentDefinition>     

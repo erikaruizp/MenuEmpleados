@@ -1,0 +1,49 @@
+<core:FragmentDefinition xmlns="sap.m"
+                         xmlns:core="sap.ui.core"
+                         xmlns:form="sap.ui.layout.form">
+    <Wizard id="wizard" complete="onWizardCompleted">
+        <WizardStep id="typeEmployeeStep" validated="false" title="{i18n>tipoEmpleadoTitle}">
+            <MessageStrip class="sapUiSmallMarginBottom" text="{i18n>paso1mensaje}" showIcon="true"/>
+            <FlexBox alignItems="Center" justifyContent="Center">
+                <Button text="{i18n>internoBut}" press="onPressInterno" class="sapUiSmallMarginEnd" />
+                <Button text="{i18n>autonomoBut}" press="onPressAutonomo" class="sapUiSmallMarginEnd" />
+                <Button text="{i18n>gerenteBut}" press="onPressGerente" class="sapUiSmallMarginEnd"/>
+            </FlexBox>
+        </WizardStep>
+        <WizardStep id="dataEmployeeStep" validated="false" title="{i18n>datosEmpleadoTitle}">
+            <MessageStrip class="sapUiSmallMarginBottom" text="{i18n>paso2mensaje}" showIcon="true"/>
+            <form:SimpleForm editable="true">
+                <Label text="{i18n>nombreLab}" required="true"/>
+                <Input valueState="{/_nombreState}" change="onValidarEmpleado" value="{/nombres}"/>
+                <Label text="{i18n>apellidoLab}" required="true"/>
+                <Input valueState="{/_apellidoState}" change="onValidarEmpleado" value="{/apellidos}"/>
+                <Label text="{= ${/_tipoEmpleado} === 'Autonomo' ? ${i18n>cifLab} : ${i18n>dniLab}}" required="true"/>
+                <Input valueState="{/_dniState}" change="onValidarDNI" value="{/dni}"/>
+                <Label text="{= ${/_tipoEmpleado} === 'Autonomo' ? ${i18n>precioDiaLab} : ${i18n>salarioBrutoLab}}"/>
+                <VBox>
+                    <Slider value="{/sueldo}" min="{/_min}" max="{/_max}" step="{/_escala}" inputsAsTooltips="true" showAdvancedTooltip="true" 
+                            enableTickmarks="true" width="100%" progress="true"  class="sapUiSmallMarginBottom" visible="true">
+                        <ResponsiveScale tickmarksBetweenLabels="100"/>
+                    </Slider>
+                </VBox>
+                <Label text="{i18n>fechaIncLab}" required="true"></Label>
+                <DatePicker dateValue="{/fechaIn}" valueState="{/_fechaState}" change="onValidarEmpleado"/>
+            </form:SimpleForm> 
+        </WizardStep>
+        <WizardStep id="OptionalInfoStep" validated="true" activate="optionalStepActivation" title="{i18n>infoAdicionalTitle}">
+            <MessageStrip class="sapUiSmallMarginBottom" text="{i18n>paso3mensaje}" showIcon="true"/>
+            <Label text="{i18n>comentarioLab}" width="100%" />
+            <TextArea value="{/comentarios}" width="100%" />
+            <UploadCollection   id="UploadCollection"
+                                maximumFilenameLength="55"
+                                maximumFileSize="10"
+                                multiple="true"
+                                uploadUrl="/sap/opu/odata/sap/ZEMPLOYEES_SRV/Attachments"
+                                sameFilenameAllowed="true"
+                                instantUpload="false"
+                                change="onFileChange"
+                                beforeUploadStarts="onBeforeUpload"
+                                noDataDescription="{i18n>ficherosmensaje}" />
+        </WizardStep>
+    </Wizard>                          
+</core:FragmentDefinition>                            
