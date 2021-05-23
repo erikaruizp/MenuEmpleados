@@ -11,7 +11,7 @@ sap.ui.define([
 
         };
               
-        var Main = Controller.extend("logaligroup.Empleados.controller.MainView", { });
+        var Main = Controller.extend("logaligroup.Empleados.controller.App", { });
         
         Main.prototype.onInit = onInit;
 

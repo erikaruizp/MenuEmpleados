@@ -5,18 +5,15 @@
     <Page id="page" title="{i18n>title}">
         <Panel headerText="{i18n>panelEmpleado}" class="sapUiSizeCompact" backgroundDesign="Transparent" expandable="true" expanded="true">
             <GenericTile headerImage="sap-icon://add-employee" class="sapUiTinyMarginBegin sapUiTinyMarginTop" press="onMenuCrearEmpleado">
-                <TileContent footer="{i18n>tileCrearEmpleado}">
-                </TileContent>
+                <TileContent footer="{i18n>tileCrearEmpleado}" />
             </GenericTile>
             <GenericTile headerImage="sap-icon://employee-lookup" class="sapUiTinyMarginBegin sapUiTinyMarginTop" press="onMenuVerEmpleado">
-                <TileContent footer="{i18n>tileVerEmpleado}">
-                </TileContent>
+                <TileContent footer="{i18n>tileVerEmpleado}" />
             </GenericTile>                    
         </Panel>
         <Panel headerText="{i18n>panelPedido}" class="sapUiSizeCompact" backgroundDesign="Transparent" expandable="true" expanded="true">
             <GenericTile headerImage="sap-icon://signature" class="sapUiTinyMarginBegin sapUiTinyMarginTop" press="onMenuFirmar">
-                <TileContent footer="{i18n>tileFirmarPedido}">
-                </TileContent>
+                <TileContent footer="{i18n>tileFirmarPedido}" />
             </GenericTile>                      
         </Panel>
     </Page>

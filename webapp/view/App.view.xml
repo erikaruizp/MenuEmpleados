@@ -1,0 +1,8 @@
+<mvc:View controllerName="logaligroup.Empleados.controller.App" 
+        xmlns:mvc="sap.ui.core.mvc"
+        xmlns="sap.m" 
+        displayBlock="true">
+	<Shell id="shell">
+		<App id="app" />
+	</Shell>
+</mvc:View>
