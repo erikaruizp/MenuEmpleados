@@ -110,7 +110,14 @@
           "target": [
             "TargetCrearEmpleado"
           ]
-        } 
+        },
+        {
+          "name": "RouteVerEmpleado",
+          "pattern": "VerEmpleado",
+          "target": [
+            "TargetVerEmpleado"
+          ]
+        }
       ],
       "targets": {
         "TargetMenu": {
@@ -124,6 +131,13 @@
           "viewType": "XML",
           "viewName": "CrearEmpleado",
           "viewId": "CrearEmpleado",
+          "transition": "slide",
+          "clearControlAggregation": true          
+        },
+        "TargetVerEmpleado": {
+          "viewType": "XML",
+          "viewName": "VerEmpleado",
+          "viewId": "VerEmpleado",
           "transition": "slide",
           "clearControlAggregation": true          
         }
