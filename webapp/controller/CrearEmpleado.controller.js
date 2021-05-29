@@ -177,7 +177,7 @@ sap.ui.define([
                     this._wizard.goToStep(this.byId("dataEmployeeStep"));
                 }
             }.bind(this));
-            var oData = this._model.getData();
+//            var oData = this._model.getData();
         };
         function onIrPaso1() {
             //Ir a sección Tipo Empleado
@@ -195,18 +195,18 @@ sap.ui.define([
             this._wizard.goToStep(this.byId("OptionalInfoStep"));            
         };  
         function onFileChange(oEvent) {
-            let oUploadCollection = oEvent.getSource();
             //Header Token CSRF
             let parameterToken = new sap.m.UploadCollectionParameter({
                 name: "x-csrf-token",
                 value: this.getView().getModel("employeeModel").getSecurityToken()                
             });
-            oUploadCollection.addHeaderParameter(parameterToken);            
+            oEvent.getSource().addHeaderParameter(parameterToken);            
         };     
         function onBeforeUpload (oEvent) {
+            let filename = oEvent.getParameter("fileName");
             let parameterSlug = new sap.m.UploadCollectionParameter({
                 name: "slug",
-                value: this.getOwnerComponent().SapId + ";" + this._empleadoID + ";" + oEvent.getParameter("fileName")
+                value: this.getOwnerComponent().SapId + ";" + this._empleadoID + ";" + filename
             });
             oEvent.getParameters().addHeaderParameter(parameterSlug);            
         };         
@@ -239,7 +239,6 @@ sap.ui.define([
                         onClose : function(){
                             //Ir al wizard
                             this._model.setProperty("/_layout", "OneColumn");            
-//                            this._wizard.goToStep(this.byId("typeEmployeeStep"));
                             //Ir al menú principal
                             var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
                             oRouter.navTo("RouteMenu",{},true);
@@ -257,9 +256,7 @@ sap.ui.define([
             });            
         };
         function onSubirArchivos (ioNum) {
-            var contexto = this;
-            var oUploadCollection = contexto.byId("UploadCollection");
-            oUploadCollection.upload();
+            this.byId("UploadCollection").upload();
         };  
 
         var Main = Controller.extend("logaligroup.Empleados.controller.CrearEmpleado", { });
