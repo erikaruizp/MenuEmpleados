@@ -4,7 +4,8 @@ sap.ui.define([
         "sap/ui/model/Filter",
         "sap/ui/model/FilterOperator",
         "sap/m/UploadCollectionParameter",
-        "sap/m/MessageBox"
+        "sap/m/MessageBox",
+        "sap/ui/model/FilterType"
 	],
 	/**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
@@ -12,8 +13,9 @@ sap.ui.define([
      * @param {typeof sap.ui.model.FilterOperator} FilterOperator
      * @param {typeof sap.m.UploadCollectionParameter} UploadCollectionParameter
      * @param {typeof sap.m.MessageBox} MessageBox
+     * @param {typeof sap.ui.model.FilterType} FilterType
      */
-	function (Controller,Filter,FilterOperator,UploadCollectionParameter,MessageBox) {
+	function (Controller,Filter,FilterOperator,UploadCollectionParameter,MessageBox,FilterType) {
 		"use strict";
 
         function onBeforeRendering(params) {
@@ -34,17 +36,30 @@ sap.ui.define([
             oRouter.navTo("RouteMenu",{},true);            
         };
         function onBuscarEmpleado() {
+            var oBinding = this.getView().byId("listaEmpleado").getBinding("items");
             var oTexto = this.getView().byId("textoBuscar").getValue();
             var filters = [];
-            filters.push(new Filter("SapId",FilterOperator.EQ,this._sapId));
 
+/*            if (oTexto !== "") {
+                var filters_aux = [];
+                filters_aux.push(new Filter("FirstName",FilterOperator.Contains,oTexto));
+                filters_aux.push(new Filter("LastName",FilterOperator.Contains,oTexto));                
+                filters.push(new Filter({
+                    filters: [new Filter("SapId",FilterOperator.EQ,this._sapId),
+                              new Filter({filters: filters_aux,and:false}),
+                             ],
+                    and:true                   
+                }));           
+                oBinding.filter(filters, FilterType.Application);              
+            }
+            else{ filters.push(new Filter("SapId",FilterOperator.EQ,this._sapId)); 
+                  oBinding.filter(filters);}*/            
+
+            filters.push(new Filter("SapId",FilterOperator.EQ,this._sapId));            
             if (oTexto !== "") {
                 filters.push(new Filter("FirstName",FilterOperator.Contains,oTexto));
             }
-
-            var oLista = this.getView().byId("listaEmpleado");
-            var oBinding = oLista.getBinding("items");
-            oBinding.filter(filters);            
+            oBinding.filter(filters);                         
         };
         function onPressEmpleado(oEvent) {
             this._splitApp.to(this.createId("detalleEmpleado"));
@@ -114,8 +129,43 @@ sap.ui.define([
             });            
         };
         function onAscenderEmpleado() {
-            
+            if(!this._dialogoAscenso){
+                this._dialogoAscenso = sap.ui.xmlfragment("logaligroup/Empleados/fragment/Ascenso", this);
+                this.getView().addDependent(this._dialogoAscenso);
+            }
+            this._dialogoAscenso.setModel(new sap.ui.model.json.JSONModel({}),"_ascensoModel");
+            this._dialogoAscenso.open();            
         };
+        function onAceptaAscenso(oEvent) {
+            let oDatos = this._dialogoAscenso.getModel("_ascensoModel").getData();
+            let oResourceB = this.oView.getModel("i18n").getResourceBundle();     
+            let oMensajeOk = oResourceB.getText("ascensoEmpleadoOkTxt");
+            let oMensajeError = oResourceB.getText("ascensoEmpleadoErrorTxt");            
+            let body = {
+                Ammount : oDatos.sueldo,
+                CreationDate : oDatos.fecha,
+                Comments : oDatos.comentario,
+                SapId : this._sapId,
+                EmployeeId : this.employeeId
+            };
+            this.getView().setBusy(true);
+            this.getView().getModel("employeeModel").create("/Salaries",body,{
+                success : function(){
+                    this.getView().setBusy(false);
+                    MessageBox.information(oMensajeOk);
+                    this.onCancelaAscenso();
+                }.bind(this),
+                error : function(e){
+                    this.getView().setBusy(false);
+                    MessageBox.information(oMensajeError);
+                    sap.base.Log.info(e);
+                }.bind(this)
+            });            
+        };
+        function onCancelaAscenso() {
+            this._dialogoAscenso.close();
+//            this.byId("timeLine").refreshContent();
+        };        
               
         var Main = Controller.extend("logaligroup.Empleados.controller.VerEmpleado", { });
         
@@ -131,6 +181,8 @@ sap.ui.define([
         Main.prototype.downloadFile = downloadFile;
         Main.prototype.onBajaEmpleado = onBajaEmpleado;
         Main.prototype.onAscenderEmpleado = onAscenderEmpleado;
+        Main.prototype.onAceptaAscenso = onAceptaAscenso;
+        Main.prototype.onCancelaAscenso = onCancelaAscenso;
 
 		return Main;
 	});

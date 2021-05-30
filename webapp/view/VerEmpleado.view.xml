@@ -63,14 +63,14 @@
 							</UploadCollection>
 						</IconTabFilter>
 						<IconTabFilter icon="sap-icon://money-bills" design="Horizontal" text="{i18n>historialTxt}">
-							<suite:Timeline	enableDoubleSided="true"
+							<suite:Timeline	enableDoubleSided="true" id="timeLine"
                                             groupByType="Year"
                                             groupBy="CreationDate"
                                             showHeaderBar="false"
                                             enableScroll="false"
                                             height="100%"
                                             sortOldestFirst="true"
-                                            content="{employeeModel>UserToSalary}">
+                                            content="{employeeModel>UserToSalary}" >
 								<suite:content>
 									<suite:TimelineItem userName="{parts:[{path:'employeeModel>Ammount'},{path:'employeeModel>Waers'}],
                                                                    type: 'sap.ui.model.type.Currency',

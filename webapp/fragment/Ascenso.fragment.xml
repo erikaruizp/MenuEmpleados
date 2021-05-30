@@ -1,0 +1,51 @@
+<core:FragmentDefinition    xmlns:core="sap.ui.core" 
+                            xmlns:mvc="sap.ui.core.mvc" 
+                            xmlns="sap.m"  
+                            xmlns:f="sap.ui.layout.form">
+	<Dialog title="{i18n>ascensoTit}">
+		<content>
+			<f:Form>
+					<f:layout>
+						<f:ResponsiveGridLayout	labelSpanXL="3"
+							                    labelSpanL="3"
+							                    labelSpanM="3"
+                                                labelSpanS="12"
+                                                adjustLabelSpan="false"
+                                                emptySpanXL="4"
+                                                emptySpanL="4"
+                                                emptySpanM="4"
+                                                emptySpanS="0"
+                                                columnsXL="1"
+                                                columnsL="1"
+                                                columnsM="1"
+                                                singleContainerFullSize="false" />
+					</f:layout>
+					<f:formContainers>
+						<f:FormContainer>
+							<f:formElements>
+								<f:FormElement label="{i18n>salarioBrutoLab}">
+									<f:fields>
+										<Input id="salarioIn" value="{_ascensoModel>/sueldo}"/>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="{i18n>fechaLab}">
+									<f:fields>
+										<DatePicker id="FechaIn" dateValue="{_ascensoModel>/fecha}"/>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="{i18n>comentarioLab}">
+									<f:fields>
+										<TextArea id="comentarioIn" value="{_ascensoModel>/comentario}"/>
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+					</f:formContainers>
+			</f:Form>
+		</content>
+		<buttons>
+			<Button text="{i18n>aceptarBut}" press="onAceptaAscenso" />
+			<Button text="{i18n>cancelBut}" press="onCancelaAscenso" />
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>
