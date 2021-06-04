@@ -165,6 +165,7 @@ sap.ui.define([
         function onCancelaAscenso() {
             this._dialogoAscenso.close();
 //            this.byId("timeLine").refreshContent();
+            this.getView().getModel("employeeModel").refresh();
         };        
               
         var Main = Controller.extend("logaligroup.Empleados.controller.VerEmpleado", { });
