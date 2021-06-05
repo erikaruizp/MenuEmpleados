@@ -103,7 +103,7 @@ sap.ui.define([
         };
         function downloadFile(oEvent) {
             let sPath = oEvent.getSource().getBindingContext("employeeModel").getPath();
-            window.open("/sap/opu/odata/sap/ZEMPLOYEES_SRV" + sPath + "/$value");            
+            window.open("sap/opu/odata/sap/ZEMPLOYEES_SRV" + sPath + "/$value");            
         };
         function onBajaEmpleado() {
             let oResourceB = this.oView.getModel("i18n").getResourceBundle();
